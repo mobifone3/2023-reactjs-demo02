@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { appRoutes } from "../../routes";
 
 export default function Sidebar() {
   return (
@@ -36,35 +38,36 @@ export default function Sidebar() {
       <div className="scrollbar-sidebar">
         <div className="app-sidebar__inner">
           <ul className="vertical-nav-menu">
-            <li className="app-sidebar__heading">Dashboards</li>
-            <li>
-              <a href="index.html" className="mm-active">
-                <i className="metismenu-icon pe-7s-rocket" />
-                Dashboard Example 1
-              </a>
-            </li>
+            {/* ------------------------------ MAIN SIDE BAR SECTION BEGIN -------------------------------- */}
             <li className="app-sidebar__heading">UI Components</li>
             <li>
-              <a href="#">
+              <a>
                 <i className="metismenu-icon pe-7s-diamond" />
-                Elements
+                Giao Diện
                 <i className="metismenu-state-icon pe-7s-angle-down caret-left" />
               </a>
               <ul>
-                <li>
-                  <a href="elements-buttons-standard.html">
-                    <i className="metismenu-icon" />
-                    Buttons
-                  </a>
-                </li>
-                <li>
-                  <a href="elements-buttons-standard.html">
+                {appRoutes?.[0]
+                  ? appRoutes.map((link) => {
+                      return (
+                        <li>
+                          <Link to={link?.to}>
+                            <i className="metismenu-icon" />
+                            {link?.display}
+                          </Link>
+                        </li>
+                      );
+                    })
+                  : null}
+                {/* <li>
+                  <Link to="/icons">
                     <i className="metismenu-icon" />
                     Icons
-                  </a>
-                </li>
+                  </Link>
+                </li> */}
               </ul>
             </li>
+            {/* ------------------------------ MAIN SIDE BAR SECTION END -------------------------------- */}
             <li>
               <a href="tables-regular.html">
                 <i className="metismenu-icon pe-7s-display2" />
