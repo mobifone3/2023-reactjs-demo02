@@ -3,18 +3,11 @@ import axios from "axios";
 import TableItem from "./TableItem";
 import { callApis } from "../../../../apis";
 
-export default function DataTable() {
-  const [students, setStudents] = useState([]);
-
-  useEffect(() => {
-    if (!students?.[0]) {
-      callApis.get('/students').then((res) => setStudents(res.data));
-    }
-  }, [students]);
-
+export default function DataTable({students, loading}) {
+  console.log(students);
   return (
     <div className="card acik-renk-form overflow-auto" style={{ maxHeight: "70vh" }}>
-      <table className="card-body table table-striped h-100">
+      <table className="card-body table table-striped">
         <thead className="thead-dark sticky-top">
           <tr>
             <th scope="col">#</th>
@@ -29,9 +22,9 @@ export default function DataTable() {
               return <TableItem key={idx} student={std} idx={idx} />;
             })}
           </tbody>
-        ) : (
+        ) : loading ? (
           <div class="spinner-border" role="status"></div>
-        )}
+        ) : null}
       </table>
     </div>
   );

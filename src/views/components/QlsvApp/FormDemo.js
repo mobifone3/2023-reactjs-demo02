@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./FormDemo.css";
+import SyncButton from "../../../components/SyncButton";
 
-export default function FormDemo({ handleAddStudent, ...props }) {
-  const [formData, setFormData] = useState({});
+export default function FormDemo({ loading, handleOnChangeForm, handleSubmitForm, formData  }) {
 
   // #################################################################################
   // I. SIDE EFFECT HANDLE SECTION
@@ -11,20 +11,7 @@ export default function FormDemo({ handleAddStudent, ...props }) {
   // #################################################################################
   // II. HELPER SECTION
   // #################################################################################
-  /**
-   * Hàm xử lý khi form thay đổi
-   * @param {*} e : input element nhận vào
-   */
-  const handleOnChangeForm = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmitForm = () => {
-    console.log("FUNC LOG -> ", formData);
-    if (!formData["address"] || !formData["name"]) return alert("Không Có Address");
-    handleAddStudent(formData);
-  };
-
+  
   // #################################################################################
   // III. JSX RENDER SECTION
   // #################################################################################
@@ -45,7 +32,7 @@ export default function FormDemo({ handleAddStudent, ...props }) {
                             Tên:
                           </label>
                           <input
-                            value={formData["name"]}
+                            value={formData?.["name"] || ""}
                             onChange={handleOnChangeForm}
                             type="text"
                             name="name"
@@ -58,6 +45,7 @@ export default function FormDemo({ handleAddStudent, ...props }) {
                             Địa Chỉ:
                           </label>
                           <input
+                            value={formData?.["address"] || ""}
                             onChange={handleOnChangeForm}
                             type="text"
                             name="address"
@@ -66,14 +54,14 @@ export default function FormDemo({ handleAddStudent, ...props }) {
                           />
                         </div>
                         <div className="form-group d-grid gap-2">
-                          <button
+                          {loading ? <SyncButton fullWidth/> : <button
                             type="button"
                             onClick={handleSubmitForm}
                             name="submit"
                             className="btn btn-success btn-md btn-block"
                           >
                             Cập Nhập
-                          </button>
+                          </button>}
                         </div>
                       </form>
                     </div>

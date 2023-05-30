@@ -8,13 +8,45 @@ import DataTable from "./components/QlsvApp/DataTable/DataTable";
 import { callApis } from "../apis";
 
 export default function QlsvApp() {
-  // const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({});
+  const [students, setStudents] = useState([]);
 
-  const handleAddStudent = (_formData) => {
-    // setStudents([...students, _formData]);
-    callApis.post("/students", { ..._formData, createdAt: new Date() });
+  // ----------------------------------------------------------------------------------
+  useEffect(() => {
+    setLoading(true);
+    handleGetAllStudents();
+  }, []);
+
+  // ----------------------------------------------------------------------------------
+  const handleGetAllStudents = async () => {
+    const response = await callApis.get('/students');
+    const data = response?.data?.[0] ? response.data : [];
+    setLoading(false);
+    setStudents(data);
+  }
+
+  /**
+   * Hàm xử lý khi form thay đổi
+   * @param {*} e : input element nhận vào
+   */
+  const handleOnChangeForm = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleSubmitForm = () => {
+    if (!formData["address"] || !formData["name"]) return alert("Không Có Address");
+    const postData = { ...formData, createdAt: new Date() };
+    setLoading(true);
+    callApis.post("/students", postData).then(async (res) => {
+      if (res?.data?.id) {
+        await handleGetAllStudents();
+      }
+    });
+  };
+
+
+  // ----------------------------------------------------------------------------------
   return (
     <>
       <Header />
@@ -25,19 +57,19 @@ export default function QlsvApp() {
               <h2 className="text-secondary">Web Gì Đó</h2>
             </div>
           </div>
-          {/* <div className="row" style={{ maxHeight: "70vh", overflow: "auto" }}>
+          <div className="row" style={{ maxHeight: "70vh", overflow: "auto" }}>
             <div className="col-12">
-              <FormDemo handleAddStudent={handleAddStudent} />
+              <FormDemo loading={loading} formData={formData} handleOnChangeForm={handleOnChangeForm} handleSubmitForm={handleSubmitForm} />
             </div>
             <div className="col-12">
-              <DataTable />
+              <DataTable students={students} loading={loading}/>
             </div>
-          </div> */}
+          </div>
           {/* ------------------------------- LỖI SWITCH ROUTE Ở ĐÂY NHÉ !!!!-------------------------------  */}
-          <Routes>
-            <Route path="/table" element={<DataTable />}></Route>
-            <Route path="/form" element={<FormDemo handleAddStudent={handleAddStudent} />} />
-          </Routes>
+          {/* <Routes>
+            <Route path="/table" element={<DataTable loading={loading} students={students} />}></Route>
+            <Route path="/form" element={<FormDemo loading={loading} formData={formData} handleOnChangeForm={handleOnChangeForm} handleSubmitForm={handleSubmitForm} />} />
+          </Routes> */}
           {/* <Outlet /> */}
         </div>
       </section>
