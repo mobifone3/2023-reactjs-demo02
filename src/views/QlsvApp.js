@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Route, Routes } from "react-router";
+import { Outlet, Route, Routes } from "react-router";
 
 import FormDemo from "./components/QlsvApp/FormDemo";
 import Header from "./components/QlsvApp/Header";
 import DataTable from "./components/QlsvApp/DataTable/DataTable";
+import { callApis } from "../apis";
 
-export default function () {
+export default function QlsvApp() {
   // const [students, setStudents] = useState([]);
 
   const handleAddStudent = (_formData) => {
     // setStudents([...students, _formData]);
-    axios.post("https://5f9b85e1856f4c00168c26e6.mockapi.io/students", { ..._formData, createdAt: new Date() });
+    callApis.post("/students", { ..._formData, createdAt: new Date() });
   };
 
   return (
@@ -33,10 +34,11 @@ export default function () {
             </div>
           </div> */}
           {/* ------------------------------- LỖI SWITCH ROUTE Ở ĐÂY NHÉ !!!!-------------------------------  */}
-          {/* <Routes>
+          <Routes>
             <Route path="/table" element={<DataTable />}></Route>
             <Route path="/form" element={<FormDemo handleAddStudent={handleAddStudent} />} />
-          </Routes> */}
+          </Routes>
+          {/* <Outlet /> */}
         </div>
       </section>
     </>

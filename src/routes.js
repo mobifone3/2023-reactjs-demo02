@@ -14,13 +14,5 @@ export const appRoutes = [
   { to: "/icons", display: "Menu Icons", component: Icons },
   { to: "/standard-button", display: "Menu Button", component: StandardButtons },
   { to: "/todo-app", display: "App Todo", component: TodoApp },
-  {
-    to: "/qlsv-app",
-    display: "App QLSV",
-    component: QlsvApp,
-    children: [
-      { to: "/form", display: "Form", component: FormDemo },
-      { to: "/table", display: "Table", component: DataTable },
-    ],
-  },
+  { to: "/qlsv-app/*", display: "App QLSV", component: QlsvApp  },
 ];

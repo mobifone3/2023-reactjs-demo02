@@ -24,15 +24,15 @@ export default function AppContent() {
             <React.Suspense fallback={<div>Not Found</div>}>
               <Routes>
                 {appRoutes.map((route, idx) => {
-                  if (route?.children?.[0]) {
-                    return (
-                      <Route key={idx} path={route.to} element={<route.component />}>
-                        {route?.children.map((cRoute, cIdx) => {
-                          return <Route key={cIdx} path={`${route.to}/${cRoute.to}`} element={<cRoute.component />} />;
-                        })}
-                      </Route>
-                    );
-                  }
+                  // if (route?.children?.[0]) {
+                  //   return (
+                  //     <Route key={idx} path={route.to} element={<route.component />}>
+                  //       {route?.children.map((cRoute, cIdx) => {
+                  //         return <Route key={cIdx} path={`${route.to}/${cRoute.to}`} element={<cRoute.component />} />;
+                  //       })}
+                  //     </Route>
+                  //   );
+                  // }
                   return <Route key={idx} path={route.to} element={<route.component />} />;
                 })}
               </Routes>

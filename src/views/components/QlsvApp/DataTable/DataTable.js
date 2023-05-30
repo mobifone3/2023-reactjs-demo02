@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import TableItem from "./TableItem";
+import { callApis } from "../../../../apis";
 
 export default function DataTable() {
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
     if (!students?.[0]) {
-      axios.get("https://5f9b85e1856f4c00168c26e6.mockapi.io/students").then((res) => setStudents(res.data));
+      callApis.get('/students').then((res) => setStudents(res.data));
     }
   }, [students]);
 
