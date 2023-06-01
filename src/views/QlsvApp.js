@@ -6,11 +6,17 @@ import FormDemo from "./components/QlsvApp/FormDemo";
 import Header from "./components/QlsvApp/Header";
 import DataTable from "./components/QlsvApp/DataTable/DataTable";
 import { callApis } from "../apis";
+import { useDispatch, useSelector } from "react-redux";
+import { qlsvActions } from "../redux/actions/qlsv";
 
 export default function QlsvApp() {
+  const students = useSelector((state) => state.student.studentArr);
+
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({});
-  const [students, setStudents] = useState([]);
+  // const [students, setStudents] = useState([]);
+
+  const dispatch = useDispatch();
 
   // ----------------------------------------------------------------------------------
   useEffect(() => {
@@ -18,13 +24,17 @@ export default function QlsvApp() {
     handleGetAllStudents();
   }, []);
 
+  // useEffect(() => {
+  //   if (studentArr?.[0] && loading === false) return setStudents(studentArr);
+  // }, [studentArr]);
+
   // ----------------------------------------------------------------------------------
   const handleGetAllStudents = async () => {
-    const response = await callApis.get('/students');
+    const response = await callApis.get("/students");
     const data = response?.data?.[0] ? response.data : [];
     setLoading(false);
-    setStudents(data);
-  }
+    dispatch(qlsvActions.setAllSv(data));
+  };
 
   /**
    * Hàm xử lý khi form thay đổi
@@ -45,13 +55,12 @@ export default function QlsvApp() {
     });
   };
 
-
   // ----------------------------------------------------------------------------------
   return (
     <>
       <Header />
       <section className="search-banner text-white py-3 form-arka-plan" id="search-banner">
-        <div className="container py-5 my-5">
+        <div className="container">
           <div className="row text-center pb-4">
             <div className="col-md-12">
               <h2 className="text-secondary">Web Gì Đó</h2>
@@ -59,10 +68,15 @@ export default function QlsvApp() {
           </div>
           <div className="row" style={{ maxHeight: "70vh", overflow: "auto" }}>
             <div className="col-12">
-              <FormDemo loading={loading} formData={formData} handleOnChangeForm={handleOnChangeForm} handleSubmitForm={handleSubmitForm} />
+              <FormDemo
+                loading={loading}
+                formData={formData}
+                handleOnChangeForm={handleOnChangeForm}
+                handleSubmitForm={handleSubmitForm}
+              />
             </div>
             <div className="col-12">
-              <DataTable students={students} loading={loading}/>
+              <DataTable students={students} loading={loading} />
             </div>
           </div>
           {/* ------------------------------- LỖI SWITCH ROUTE Ở ĐÂY NHÉ !!!!-------------------------------  */}

@@ -48,9 +48,9 @@ export default function Sidebar() {
               </a>
               <ul>
                 {appRoutes?.[0]
-                  ? appRoutes.map((link) => {
+                  ? appRoutes.map((link, idx) => {
                       return (
-                        <li>
+                        <li key={idx}>
                           <Link to={link?.to}>
                             <i className="metismenu-icon" />
                             {link?.display}

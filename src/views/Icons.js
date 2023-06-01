@@ -43,27 +43,27 @@ export default function Icons() {
               <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
                 <ul class="nav flex-column">
                   <li class="nav-item">
-                    <a href="javascript:void(0);" class="nav-link">
+                    <a href="" class="nav-link">
                       <i class="nav-link-icon lnr-inbox"></i>
                       <span>Inbox</span>
                       <div class="ml-auto badge badge-pill badge-secondary">86</div>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="javascript:void(0);" class="nav-link">
+                    <a href="" class="nav-link">
                       <i class="nav-link-icon lnr-book"></i>
                       <span>Book</span>
                       <div class="ml-auto badge badge-pill badge-danger">5</div>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="javascript:void(0);" class="nav-link">
+                    <a href="" class="nav-link">
                       <i class="nav-link-icon lnr-picture"></i>
                       <span>Picture</span>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a disabled="" href="javascript:void(0);" class="nav-link disabled">
+                    <a disabled="" href="" class="nav-link disabled">
                       <i class="nav-link-icon lnr-file-empty"></i>
                       <span>File Disabled</span>
                     </a>

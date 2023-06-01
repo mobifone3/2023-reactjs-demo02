@@ -12,7 +12,11 @@ const QlsvApp = React.lazy(() => import("./views/QlsvApp"));
 export const appRoutes = [
   { to: "/", display: "DashBoard", component: Dashboard },
   { to: "/icons", display: "Menu Icons", component: Icons },
-  { to: "/standard-button", display: "Menu Button", component: StandardButtons },
+  {
+    to: "/standard-button",
+    display: "Menu Button",
+    component: StandardButtons,
+  },
   { to: "/todo-app", display: "App Todo", component: TodoApp },
-  { to: "/qlsv-app/*", display: "App QLSV", component: QlsvApp  },
+  { to: "/qlsv-app/*", display: "App QLSV", component: QlsvApp },
 ];
